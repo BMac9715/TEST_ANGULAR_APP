@@ -1,0 +1,16 @@
+<div class="d-flex flex-row justify-content-between w-100 bg-white border border-3 border-dotted border-blue-sky p-3">
+  <input type="file" class="d-none"
+        [accept]="requiredFileType"
+        (change)="onFileSelected($event)"
+        #fileUpload>
+
+  <div class="d-flex justify-content-between align-items-center w-100">
+    <span class="file-text-input">{{fileName || messageEmptyInput}}</span>
+    <ng-container *ngIf="!fileName; else deleteSelection">
+      <mat-icon class="file-input-icon color-blue-sky" aria-label="Icono de carga" (click)="fileUpload.click()">cloud_upload</mat-icon>
+    </ng-container>
+    <ng-template #deleteSelection>
+      <mat-icon class="file-input-icon color-red-600" aria-label="Icono de eliminar" (click)="onRemoveFileSelected()">delete</mat-icon>
+    </ng-template>
+  </div>
+</div>

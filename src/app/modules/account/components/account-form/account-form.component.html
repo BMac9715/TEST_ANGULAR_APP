@@ -1,0 +1,71 @@
+<div class="d-flex flex-column w-70 m-auto">
+  <div class="w-100">
+    <h3 class="font-family-poppins fs-3 fw-normal color-blue-pokemon mb-2">Tu información</h3>
+    <p class="font-family-poppins fw-normal color-gray-text">Completa la siguiente información para completar tu perfil</p>
+  </div>
+  <div class="px-0 py-1">
+    <mat-form-field appearance="outline" [color]="'primary'" class="w-100">
+      <mat-label class="">Nombre</mat-label>
+      <input matInput type="text" [formControl]="fullnameInput">
+      <mat-error class="font-family-poppins">* Campo requerido</mat-error>
+    </mat-form-field>
+  </div>
+  <div class="px-0 py-1">
+    <mat-form-field class="w-100" [color]="'primary'" appearance="outline">
+      <mat-label>Pasatiempo Favorito</mat-label>
+      <mat-chip-grid #chipGrid aria-label="Selecciona un pasatiempo">
+        <mat-chip-row *ngFor="let option of optionsSelected"
+                      (removed)="removeItem(option)"
+                      [editable]="false"
+                      [aria-description]="'Presiona para editar'">
+          {{ option }}
+          <button matChipRemove [attr.aria-label]="'Quitar selección'">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+        <input [formControl]="hobbieInput"
+               [matAutocomplete]="auto"
+               [matChipInputFor]="chipGrid"
+               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"/>
+      </mat-chip-grid>
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+        <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+  <div class="px-0 py-1">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Cumpleaños</mat-label>
+      <input matInput [matDatepicker]="birthday" [formControl]="birthdayInput">
+      <mat-error class="font-family-poppins">* Campo requerido</mat-error>
+      <mat-datepicker-toggle matIconSuffix [for]="birthday"></mat-datepicker-toggle>
+      <mat-datepicker #birthday startView="multi-year"></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="px-0 py-1">
+    <ng-container *ngIf="!isYoung; else formControlYoung">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Documento</mat-label>
+        <input
+            matInput
+            type="text"
+            [formControl]="cardInput">
+        <mat-error class="font-family-poppins">* Campo requerido</mat-error>
+      </mat-form-field>
+    </ng-container>
+    <ng-template #formControlYoung>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Carnet de Minoridad</mat-label>
+        <input
+            matInput
+            type="text"
+            [formControl]="cardInput">
+      </mat-form-field>
+    </ng-template>
+  </div>
+  <div class="m-auto">
+    <button mat-raised-button type="button" class="font-family-poppins" color="primary">Continuar</button>
+  </div>
+</div>
