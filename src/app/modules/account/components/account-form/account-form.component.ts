@@ -84,7 +84,18 @@ export class AccountFormComponent {
   onOptionSelected(option: MatAutocompleteSelectedEvent){
     this.optionsSelected = [option.option.value.trim()];
     this.hobbieInput.setValue('', {emitEvent: false});
-    console.log('Se ejecuta')
+  }
+
+  onClickContinue() : void {
+    this.fullnameInput.markAllAsTouched();
+    this.hobbieInput.markAllAsTouched();
+    this.birthdayInput.markAllAsTouched();
+    this.cardInput.markAllAsTouched();
+
+    if(this.fullnameInput.invalid || this.hobbieInput.invalid || this.birthdayInput.invalid || this.cardInput.invalid){
+      return;
+    }
+
   }
 
   private _filter(value: string): string[] {

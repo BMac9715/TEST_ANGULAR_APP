@@ -4,11 +4,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputFileComponent } from './components/input-file/input-file.component';
 import { PictureFrameComponent } from './components/picture-frame/picture-frame.component';
 import { MaterialModule } from '../material/material.module';
+import { HeaderComponent } from './components/component-header/component-header.component';
 
 @NgModule({
     declarations: [
       InputFileComponent,
-      PictureFrameComponent
+      PictureFrameComponent,
+      HeaderComponent
     ],
     imports: [
       CommonModule,
@@ -21,7 +23,8 @@ import { MaterialModule } from '../material/material.module';
       FormsModule,
       ReactiveFormsModule,
       InputFileComponent,
-      PictureFrameComponent
+      PictureFrameComponent,
+      HeaderComponent
     ]
 })
 export class SharedModule
