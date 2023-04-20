@@ -8,6 +8,9 @@ import { MY_FORMATS } from 'src/app/core/datepicker/config-datepicker';
 
 import { YearsOldPipe } from 'src/app/core/pipes/years-old.pipe';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AccountManagementService } from '../../services/account-management.service';
+import { AccountData } from '../../models/account.interface';
 
 @Component({
   selector: 'app-account-form',
@@ -40,7 +43,8 @@ export class AccountFormComponent {
 
   filteredOptions$: Observable<string[]>;
 
-  constructor(private pipeYears: YearsOldPipe) {
+  constructor(private service: AccountManagementService, private pipeYears: YearsOldPipe,
+            private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -91,10 +95,21 @@ export class AccountFormComponent {
     this.birthdayInput.markAllAsTouched();
     this.cardInput.markAllAsTouched();
 
-    if(this.fullnameInput.invalid || this.hobbieInput.invalid || this.birthdayInput.invalid || this.cardInput.invalid){
+    if(this.fullnameInput.invalid || this.optionsSelected.length < 1 || this.birthdayInput.invalid || this.cardInput.invalid){
       return;
     }
 
+    const account: AccountData = {
+      id: 0,
+      fullname: this.fullnameInput.value,
+      hobbie: this.optionsSelected[0],
+      birthday: this.birthdayInput.value,
+      cardIdentification: this.cardInput.value
+    }
+
+    this.service.saveAccount(account);
+
+    this.router.navigate(['choose-pokemon'], { relativeTo: this.route })
   }
 
   private _filter(value: string): string[] {

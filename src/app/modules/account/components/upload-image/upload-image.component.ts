@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { BehaviorSubject } from 'rxjs';
+import { AccountManagementService } from '../../services/account-management.service';
+import { Photo } from '../../models/photo.interface';
 
 @Component({
   selector: 'app-upload-image',
@@ -12,17 +14,19 @@ export class UploadImageComponent {
   imageSrc: SafeUrl = null;
   removeImage$: BehaviorSubject<boolean>;
 
-  constructor() {
+  constructor(private service: AccountManagementService) {
     this.removeImage$ = new BehaviorSubject<boolean>(null);
   }
 
-  getUrlFileUpload(src: SafeUrl): void {
-    this.imageSrc = src;
+  getUrlFileUpload(photo: SafeUrl): void {
+    this.imageSrc = photo;
   }
 
   getEventRemoveFile(value: boolean): void {
     if(value) {
       this.removeImage$.next(value);
+
+      this.service.savePhoto(null, null);
     }
   }
 }

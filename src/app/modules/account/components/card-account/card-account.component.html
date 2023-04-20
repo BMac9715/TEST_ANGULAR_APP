@@ -1,0 +1,23 @@
+<div class="card rounded-6 w-70 m-auto bg-card-green px-4 py-5">
+  <div class="row mx-0">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center py-4">
+      <span class="font-family-poppins text-white fs-24">{{account?.fullname || '' | titlecase}}</span>
+    </div>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 py-4">
+      <app-picture-frame [imageSrc]="imageSrc" [remove]="removeImage$">
+      </app-picture-frame>
+    </div>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 py-4">
+      <div class="d-flex flex-column">
+        <div class="d-flex flex-row justify-content-between align-items-center">
+          <h4 class="font-family-poppins text-white fw-bold fs-6">Pasatiempo:</h4>
+          <p class="font-family-poppins text-white fw-light fs-6">{{account?.hobbie || ''}}</p>
+        </div>
+        <div class="d-flex flex-row justify-content-between align-items-center">
+          <h4 class="font-family-poppins text-white fw-bold fs-6">Edad:</h4>
+          <p class="font-family-poppins text-white fw-light fs-6">{{account?.birthday | yearsold: false }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
