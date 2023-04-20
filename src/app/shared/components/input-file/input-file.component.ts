@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { Photo } from 'src/app/modules/account/models/photo.interface';
+import { ImageService } from '../../services/image.service';
 
 @Component({
   selector: 'app-input-file',
@@ -15,15 +17,26 @@ export class InputFileComponent {
 
   fileName = '';
 
-  constructor(private sanitizer: DomSanitizer) {}
+  constructor(private sanitizer: DomSanitizer, private imageService: ImageService) {}
 
   onFileSelected(event: any) {
     const file: File = event?.target?.files[0];
     if (file) {
       this.fileName = file.name;
-      const imageUrl = URL.createObjectURL(file);
+
+      const blob = new Blob([file], { type: file.type });
+      const imageUrl = URL.createObjectURL(blob);
+
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const imageData  = reader.result;
+        this.imageService.setImageData(imageData);
+      }
+
       const imageSrc = this.sanitizer.bypassSecurityTrustUrl(imageUrl);
-      this.uploadFileEvent.emit(imageSrc)
+
+      this.uploadFileEvent.emit(imageSrc);
     }
   }
 

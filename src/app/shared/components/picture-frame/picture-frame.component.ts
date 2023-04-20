@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
+import { ImageService } from '../../services/image.service';
 
 @Component({
   selector: 'app-picture-frame',
@@ -10,10 +11,10 @@ import { Observable } from 'rxjs';
 export class PictureFrameComponent {
 
   //https://images.unsplash.com/photo-1491528323818-fdd1faba62cc
-  @Input() imageSrc:SafeUrl = '';
+  @Input() imageSrc:SafeUrl | string = '';
   @Input() remove: Observable<boolean>;
 
-  constructor() {
+  constructor(private imageService: ImageService) {
 
   }
 
@@ -24,7 +25,13 @@ export class PictureFrameComponent {
       if(val){
         this.imageSrc = null;
       }
-    })
+    });
+
+    this.getImageData();
+  }
+
+  getImageData() {
+    this.imageSrc = this.imageService.getImageData();
   }
 
 }

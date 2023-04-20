@@ -1,5 +1,6 @@
 <app-navbar></app-navbar>
 <div class="container content">
+    <app-pokemon-loading *ngIf="isLoading"></app-pokemon-loading>
     <router-outlet></router-outlet>
 </div>
 <app-footer></app-footer>

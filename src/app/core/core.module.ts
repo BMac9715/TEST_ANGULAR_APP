@@ -1,20 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from '../shared/shared.module';
 import { YearsOldPipe } from './pipes/years-old.pipe';
+import { PokemonLoadingComponent } from './components/pokemon-loading/pokemon-loading.component';
+
 
 @NgModule({
     declarations: [
-        YearsOldPipe
+      PokemonLoadingComponent,
+      YearsOldPipe
     ],
     imports: [
-      CommonModule
+      CommonModule,
+      SharedModule
     ],
     exports: [
-      CommonModule,
-    ],
-    providers: [
+      PokemonLoadingComponent,
       YearsOldPipe
-    ]
+    ],
+    providers: [YearsOldPipe]
 })
 export class CoreModule
 {

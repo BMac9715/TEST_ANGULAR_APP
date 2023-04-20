@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-component-header',
@@ -10,5 +11,9 @@ export class HeaderComponent {
   @Input() title:string = '';
   @Input() message:string = '';
 
-  constructor() {}
+  constructor(private location: Location) {}
+
+  back(): void {
+    this.location.back()
+  }
 }
