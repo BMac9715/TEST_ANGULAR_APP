@@ -1,7 +1,10 @@
 <div class="card rounded-6 w-80 m-auto bg-card-green px-4 py-5">
   <div class="row mx-0">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center py-4">
-      <span class="font-family-poppins text-white fs-24">{{account?.fullname || '' | titlecase}}</span>
+      <div class="d-flex flex-row justify-content-between w-100">
+        <h4 class="font-family-poppins text-white fw-bold fs-5">Entrenador</h4>
+        <img src="./../../../../../assets/images/medal.png" alt="Medalla" [width]="40" [height]="36">
+      </div>
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 py-4">
       <app-picture-frame [imageSrc]="imageSrc" [remove]="removeImage$">
@@ -16,6 +19,10 @@
         <div class="d-flex flex-row justify-content-between align-items-center">
           <h4 class="font-family-poppins text-white fw-bold fs-6">Edad:</h4>
           <p class="font-family-poppins text-white fw-light fs-6">{{account?.birthday | yearsold: false }}</p>
+        </div>
+        <div class="d-flex flex-row justify-content-between align-items-center" *ngIf="!isYounger">
+          <h4 class="font-family-poppins text-white fw-bold fs-6">DUI:</h4>
+          <p class="font-family-poppins text-white fw-light fs-6">{{account?.cardIdentification | mask: '00000000-0' }}</p>
         </div>
       </div>
     </div>

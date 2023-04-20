@@ -20,4 +20,8 @@ export class MainLayoutComponent {
       }
     });
   }
+
+  onClickCreateAccount(): void {
+    this.router.navigate(['account'])
+  }
 }

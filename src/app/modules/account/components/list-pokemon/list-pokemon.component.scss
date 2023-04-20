@@ -1,0 +1,15 @@
+.pokemon {
+  &:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+  }
+}
+
+.active {
+  background-color: #FFC600 !important;
+}
+
+.card.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}

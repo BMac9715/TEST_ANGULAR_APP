@@ -1,0 +1,22 @@
+<div class="d-flex flex-column w-100 m-auto">
+  <div class="w-100">
+    <div class="d-flex flex-row justify-content-between">
+      <h3 class="font-family-poppins fs-4 fw-normal color-blue-pokemon mb-2">Mis Pokémon</h3>
+      <button mat-stroked-button color="primary">
+        <mat-icon>edit</mat-icon> Editar
+      </button>
+    </div>
+  </div>
+  <div class="w-100 my-4">
+    <div class="row row-cols-1 g-4">
+      <ng-container *ngFor="let pokemon of pokemons">
+        <div class="col">
+          <div class="card pokemon px-3 py-2 w-100 align-items-center bg-gray-light">
+            <img [src]="pokemon.imageUrl" [alt]="pokemon.name" [width]="120">
+            <h5 class="font-family-poppins fw-bold text-black fs-6">{{ pokemon.name | titlecase }}</h5>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

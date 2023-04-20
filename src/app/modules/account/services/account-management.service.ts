@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AccountData } from '../models/account.interface';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { Pokemon } from 'src/app/core/models/pokemon.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,11 @@ export class AccountManagementService {
 
   private _currentAccount: AccountData;
   private _currentPhoto: SafeUrl | string;
+  private _choosedPokemon: Pokemon[] = [];
 
   constructor(private sanitizer: DomSanitizer) {
     this._currentAccount = JSON.parse(localStorage.getItem('account')!) || null;
-    this.getImageFromLocalStorage();
+    this._choosedPokemon = JSON.parse(localStorage.getItem('pokemon')!) || [];
   }
 
   get photo (): SafeUrl {
@@ -22,6 +24,16 @@ export class AccountManagementService {
 
   get account (): AccountData {
     return this._currentAccount;
+  }
+
+  get pokemon (): Pokemon[] {
+    return this._choosedPokemon;
+  }
+
+  savePokemon(pokemon: Pokemon[]): void {
+    this._choosedPokemon = pokemon;
+
+    localStorage.setItem('pokemon', JSON.stringify(this._choosedPokemon));
   }
 
   savePhoto(src: SafeUrl, url: string): void {
@@ -39,16 +51,5 @@ export class AccountManagementService {
     this._currentAccount = account;
 
     localStorage.setItem('account', JSON.stringify(this._currentAccount));
-  }
-
-  getCurrentAccount(): AccountData {
-    return this._currentAccount;
-  }
-
-  private getImageFromLocalStorage() {
-    this._currentPhoto = null;
-    const base64data = localStorage.getItem('photo');
-    const imageUrl = `data:image/jpeg;base64,${base64data}`;
-    this._currentPhoto = imageUrl;
   }
 }
