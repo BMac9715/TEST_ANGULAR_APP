@@ -36,7 +36,7 @@
     </mat-form-field>
   </div>
   <div class="px-0 py-1">
-    <mat-form-field appearance="outline" class="w-100">
+    <mat-form-field appearance="outline" [color]="'primary'" class="w-100">
       <mat-label>Cumpleaños</mat-label>
       <input matInput [matDatepicker]="birthday" [formControl]="birthdayInput">
       <mat-error class="font-family-poppins">* Campo requerido</mat-error>
@@ -46,17 +46,18 @@
   </div>
   <div class="px-0 py-1">
     <ng-container *ngIf="!isYoung; else formControlYoung">
-      <mat-form-field appearance="outline" class="w-100">
+      <mat-form-field appearance="outline" [color]="'primary'" class="w-100">
         <mat-label>Documento</mat-label>
         <input
             matInput
             type="text"
+            mask="99999999-9"
             [formControl]="cardInput">
         <mat-error class="font-family-poppins">* Campo requerido</mat-error>
       </mat-form-field>
     </ng-container>
     <ng-template #formControlYoung>
-      <mat-form-field appearance="outline" class="w-100">
+      <mat-form-field appearance="outline" [color]="'primary'" class="w-100">
         <mat-label>Carnet de Minoridad</mat-label>
         <input
             matInput

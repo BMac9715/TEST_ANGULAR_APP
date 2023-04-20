@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FormControl, Validators } from '@angular/forms';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
-import { MatChipEditedEvent } from '@angular/material/chips';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { Observable, debounceTime, distinctUntilChanged, map, startWith } from 'rxjs';
 import { MY_FORMATS } from 'src/app/core/datepicker/config-datepicker';

@@ -9,6 +9,8 @@ import { AccountFormComponent } from './components/account-form/account-form.com
 import { MaterialModule } from 'src/app/material/material.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+
 @NgModule({
     declarations: [
       AccountComponent,
@@ -19,6 +21,11 @@ import { SharedModule } from 'src/app/shared/shared.module';
       RouterModule.forChild(accountRoutes),
       MaterialModule,
       SharedModule,
+      NgxMaskDirective,
+      NgxMaskPipe
+    ],
+    providers: [
+      provideNgxMask()
     ]
 })
 export class AccountModule
