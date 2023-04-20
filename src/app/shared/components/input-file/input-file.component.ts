@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-input-file',
@@ -9,23 +10,25 @@ export class InputFileComponent {
 
   @Input() requiredFileType:string = '';
   @Input() messageEmptyInput:string = 'Seleccionar un archivo';
+  @Output() uploadFileEvent = new EventEmitter<SafeUrl>();
+  @Output() removeFileEvent = new EventEmitter<boolean>();
 
   fileName = '';
 
-  constructor() {}
+  constructor(private sanitizer: DomSanitizer) {}
 
   onFileSelected(event: any) {
-    const file:File = event?.target?.files[0];
+    const file: File = event?.target?.files[0];
     if (file) {
       this.fileName = file.name;
-      const formData = new FormData();
-      formData.append("thumbnail", file);
-      //const upload$ = this.http.post("/api/thumbnail-upload", formData);
-      //upload$.subscribe();
+      const imageUrl = URL.createObjectURL(file);
+      const imageSrc = this.sanitizer.bypassSecurityTrustUrl(imageUrl);
+      this.uploadFileEvent.emit(imageSrc)
     }
   }
 
   onRemoveFileSelected() {
     this.fileName = '';
+    this.removeFileEvent.emit(true);
   }
 }

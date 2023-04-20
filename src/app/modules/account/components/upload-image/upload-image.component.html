@@ -4,10 +4,15 @@
       <span class="font-family-poppins text-white fs-24">Imagen perfil</span>
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 py-4">
-      <app-picture-frame></app-picture-frame>
+      <app-picture-frame [imageSrc]="imageSrc" [remove]="removeImage$">
+      </app-picture-frame>
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 py-4">
-      <app-input-file [requiredFileType]="'image/*'" [messageEmptyInput]="'Adjunta una foto'"></app-input-file>
+      <app-input-file [requiredFileType]="'image/*'"
+                      [messageEmptyInput]="'Adjunta una foto'"
+                      (uploadFileEvent)="getUrlFileUpload($event)"
+                      (removeFileEvent)="getEventRemoveFile($event)">
+      </app-input-file>
     </div>
   </div>
 </div>
